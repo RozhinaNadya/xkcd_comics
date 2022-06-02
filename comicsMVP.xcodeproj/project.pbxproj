@@ -18,6 +18,9 @@
 		841638972848ECC900F5873D /* TabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638962848ECC900F5873D /* TabBarModel.swift */; };
 		841638992848ED8C00F5873D /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638982848ED8C00F5873D /* Factory.swift */; };
 		8416389E2848F1C100F5873D /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416389D2848F1C100F5873D /* ExtensionUIColor.swift */; };
+		841638A22849006800F5873D /* ComicsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A12849006800F5873D /* ComicsTableViewCell.swift */; };
+		841638A4284901B600F5873D /* ComicsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A3284901B600F5873D /* ComicsData.swift */; };
+		841638A6284903D400F5873D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A5284903D400F5873D /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		841638962848ECC900F5873D /* TabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModel.swift; sourceTree = "<group>"; };
 		841638982848ED8C00F5873D /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		8416389D2848F1C100F5873D /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
+		841638A12849006800F5873D /* ComicsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsTableViewCell.swift; sourceTree = "<group>"; };
+		841638A3284901B600F5873D /* ComicsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsData.swift; sourceTree = "<group>"; };
+		841638A5284903D400F5873D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,10 +74,11 @@
 			children = (
 				8416389B2848EFE100F5873D /* Common */,
 				8416389A2848EFCA00F5873D /* Models */,
-				841638802848E37800F5873D /* ProfileViewController.swift */,
-				841638902848E62C00F5873D /* FeedViewController.swift */,
-				841638852848E38300F5873D /* Assets.xcassets */,
+				841638A02848FFDD00F5873D /* Profile */,
+				8416389F2848FF8A00F5873D /* Feed */,
+				841638A3284901B600F5873D /* ComicsData.swift */,
 				841638872848E38300F5873D /* LaunchScreen.storyboard */,
+				841638852848E38300F5873D /* Assets.xcassets */,
 				8416388A2848E38300F5873D /* Info.plist */,
 				8416389C2848F09C00F5873D /* Extensions */,
 			);
@@ -93,6 +100,7 @@
 				8416387E2848E37800F5873D /* SceneDelegate.swift */,
 				841638922848E72D00F5873D /* TabBar.swift */,
 				841638982848ED8C00F5873D /* Factory.swift */,
+				841638A5284903D400F5873D /* CustomButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -104,6 +112,23 @@
 				8416389D2848F1C100F5873D /* ExtensionUIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8416389F2848FF8A00F5873D /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				841638902848E62C00F5873D /* FeedViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		841638A02848FFDD00F5873D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				841638802848E37800F5873D /* ProfileViewController.swift */,
+				841638A12849006800F5873D /* ComicsTableViewCell.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,12 +204,15 @@
 				841638992848ED8C00F5873D /* Factory.swift in Sources */,
 				841638952848EC5600F5873D /* ExtensionUIView.swift in Sources */,
 				841638812848E37800F5873D /* ProfileViewController.swift in Sources */,
+				841638A22849006800F5873D /* ComicsTableViewCell.swift in Sources */,
 				8416387D2848E37800F5873D /* AppDelegate.swift in Sources */,
 				8416389E2848F1C100F5873D /* ExtensionUIColor.swift in Sources */,
 				841638912848E62C00F5873D /* FeedViewController.swift in Sources */,
 				8416387F2848E37800F5873D /* SceneDelegate.swift in Sources */,
+				841638A6284903D400F5873D /* CustomButton.swift in Sources */,
 				841638972848ECC900F5873D /* TabBarModel.swift in Sources */,
 				841638932848E72D00F5873D /* TabBar.swift in Sources */,
+				841638A4284901B600F5873D /* ComicsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
