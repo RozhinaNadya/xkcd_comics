@@ -14,6 +14,10 @@
 		841638892848E38300F5873D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841638872848E38300F5873D /* LaunchScreen.storyboard */; };
 		841638912848E62C00F5873D /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638902848E62C00F5873D /* FeedViewController.swift */; };
 		841638932848E72D00F5873D /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638922848E72D00F5873D /* TabBar.swift */; };
+		841638952848EC5600F5873D /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638942848EC5500F5873D /* ExtensionUIView.swift */; };
+		841638972848ECC900F5873D /* TabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638962848ECC900F5873D /* TabBarModel.swift */; };
+		841638992848ED8C00F5873D /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638982848ED8C00F5873D /* Factory.swift */; };
+		8416389E2848F1C100F5873D /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416389D2848F1C100F5873D /* ExtensionUIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		8416388A2848E38300F5873D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		841638902848E62C00F5873D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		841638922848E72D00F5873D /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		841638942848EC5500F5873D /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
+		841638962848ECC900F5873D /* TabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModel.swift; sourceTree = "<group>"; };
+		841638982848ED8C00F5873D /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		8416389D2848F1C100F5873D /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +66,44 @@
 		8416387B2848E37800F5873D /* comicsMVP */ = {
 			isa = PBXGroup;
 			children = (
-				8416387C2848E37800F5873D /* AppDelegate.swift */,
-				8416387E2848E37800F5873D /* SceneDelegate.swift */,
-				841638922848E72D00F5873D /* TabBar.swift */,
+				8416389B2848EFE100F5873D /* Common */,
+				8416389A2848EFCA00F5873D /* Models */,
 				841638802848E37800F5873D /* ProfileViewController.swift */,
 				841638902848E62C00F5873D /* FeedViewController.swift */,
 				841638852848E38300F5873D /* Assets.xcassets */,
 				841638872848E38300F5873D /* LaunchScreen.storyboard */,
 				8416388A2848E38300F5873D /* Info.plist */,
+				8416389C2848F09C00F5873D /* Extensions */,
 			);
 			path = comicsMVP;
+			sourceTree = "<group>";
+		};
+		8416389A2848EFCA00F5873D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				841638962848ECC900F5873D /* TabBarModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8416389B2848EFE100F5873D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8416387C2848E37800F5873D /* AppDelegate.swift */,
+				8416387E2848E37800F5873D /* SceneDelegate.swift */,
+				841638922848E72D00F5873D /* TabBar.swift */,
+				841638982848ED8C00F5873D /* Factory.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		8416389C2848F09C00F5873D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				841638942848EC5500F5873D /* ExtensionUIView.swift */,
+				8416389D2848F1C100F5873D /* ExtensionUIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,10 +176,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841638992848ED8C00F5873D /* Factory.swift in Sources */,
+				841638952848EC5600F5873D /* ExtensionUIView.swift in Sources */,
 				841638812848E37800F5873D /* ProfileViewController.swift in Sources */,
 				8416387D2848E37800F5873D /* AppDelegate.swift in Sources */,
+				8416389E2848F1C100F5873D /* ExtensionUIColor.swift in Sources */,
 				841638912848E62C00F5873D /* FeedViewController.swift in Sources */,
 				8416387F2848E37800F5873D /* SceneDelegate.swift in Sources */,
+				841638972848ECC900F5873D /* TabBarModel.swift in Sources */,
 				841638932848E72D00F5873D /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

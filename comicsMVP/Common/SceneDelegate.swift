@@ -11,20 +11,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
         
-        let feedNavigationController = UINavigationController(rootViewController: FeedViewController(background: .lightGray))
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController(background: .darkGray))
+        let factory = Factory()
         
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house"), selectedImage: nil)
-        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
+        let tabBarModel = TabBarModel()
         
-        window.rootViewController = TabBar(viewControllers: [feedNavigationController, profileNavigationController])
+        let feedNavigationController = UINavigationController(rootViewController: FeedViewController())
+        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
+        
+        window.rootViewController = factory.makeTabBar(viewModel: tabBarModel, feedController: feedNavigationController, profileController: profileNavigationController)
         window.makeKeyAndVisible()
         self.window = window
     }

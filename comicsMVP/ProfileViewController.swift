@@ -8,23 +8,19 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    var background: UIColor
-    
-    init(background: UIColor){
-        self.background = background
+        
+    init(){
         super.init(nibName: nil, bundle: nil)
     }
     
     override func loadView() {
         let view = UIView()
         self.view = view
-        view.backgroundColor = background
+        view.backgroundColor = .allBackgroundColor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     required init?(coder: NSCoder) {
