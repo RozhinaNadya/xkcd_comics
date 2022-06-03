@@ -21,6 +21,7 @@
 		841638A22849006800F5873D /* ComicsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A12849006800F5873D /* ComicsTableViewCell.swift */; };
 		841638A4284901B600F5873D /* ComicsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A3284901B600F5873D /* ComicsData.swift */; };
 		841638A6284903D400F5873D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A5284903D400F5873D /* CustomButton.swift */; };
+		841638A828491FCA00F5873D /* ExtensionUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A728491FCA00F5873D /* ExtensionUIImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		841638A12849006800F5873D /* ComicsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsTableViewCell.swift; sourceTree = "<group>"; };
 		841638A3284901B600F5873D /* ComicsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsData.swift; sourceTree = "<group>"; };
 		841638A5284903D400F5873D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		841638A728491FCA00F5873D /* ExtensionUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				841638942848EC5500F5873D /* ExtensionUIView.swift */,
 				8416389D2848F1C100F5873D /* ExtensionUIColor.swift */,
+				841638A728491FCA00F5873D /* ExtensionUIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				841638912848E62C00F5873D /* FeedViewController.swift in Sources */,
 				8416387F2848E37800F5873D /* SceneDelegate.swift in Sources */,
 				841638A6284903D400F5873D /* CustomButton.swift in Sources */,
+				841638A828491FCA00F5873D /* ExtensionUIImageView.swift in Sources */,
 				841638972848ECC900F5873D /* TabBarModel.swift in Sources */,
 				841638932848E72D00F5873D /* TabBar.swift in Sources */,
 				841638A4284901B600F5873D /* ComicsData.swift in Sources */,
