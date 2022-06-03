@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class FavoriteViewController: UIViewController {
         
     init(){
         super.init(nibName: nil, bundle: nil)

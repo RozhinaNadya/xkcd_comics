@@ -9,10 +9,10 @@ import UIKit
 
 class TabBarModel {
     
-    var feedTabBarItemTitle = "Feed"
-    var feedTabBarItemImage = UIImage(systemName: "house")
+    var comicsTabBarItemTitle = "Comics"
+    var comicsTabBarItemImage = UIImage(systemName: "face.smiling")
     
-    var profileTabBarItemTitle = "Profile"
-    var profileTabBarItemImage = UIImage(systemName: "person.crop.circle")
+    var favoriteTabBarItemTitle = "Favorite"
+    var favoriteTabBarItemImage = UIImage(systemName: "heart")
     
 }

@@ -21,10 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarModel = TabBarModel()
         
-        let feedNavigationController = UINavigationController(rootViewController: FeedViewController())
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
+        let comicsNavigationController = UINavigationController(rootViewController: ComicsViewController())
+        let favoriteNavigationController = UINavigationController(rootViewController: FavoriteViewController())
         
-        window.rootViewController = factory.makeTabBar(viewModel: tabBarModel, feedController: feedNavigationController, profileController: profileNavigationController)
+        window.rootViewController = factory.makeTabBar(viewModel: tabBarModel, comicsController: comicsNavigationController, favoriteController: favoriteNavigationController)
         window.makeKeyAndVisible()
         self.window = window
     }

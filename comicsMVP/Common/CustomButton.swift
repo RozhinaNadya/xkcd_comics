@@ -10,13 +10,11 @@ import UIKit
 final class CustomButton: UIButton {
     private var title: String
     var onTap: (() -> Void)?
- //   private let pixelImage = UIImage(named: "blue_pixel.png")
     
     init(title: String) {
         self.title = title
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-  //      setBackgroundImage(pixelImage, for: .normal)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         layer.cornerRadius = 10

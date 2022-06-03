@@ -9,11 +9,11 @@ import UIKit
 
 class Factory {
     
-    func makeTabBar(viewModel: TabBarModel, feedController: UINavigationController, profileController: UINavigationController) -> UITabBarController {
+    func makeTabBar(viewModel: TabBarModel, comicsController: UINavigationController, favoriteController: UINavigationController) -> UITabBarController {
         
-        feedController.tabBarItem = UITabBarItem(title: viewModel.feedTabBarItemTitle, image: viewModel.feedTabBarItemImage, selectedImage: nil)
-        profileController.tabBarItem = UITabBarItem(title: viewModel.profileTabBarItemTitle, image: viewModel.profileTabBarItemImage, selectedImage: nil)
+        comicsController.tabBarItem = UITabBarItem(title: viewModel.comicsTabBarItemTitle, image: viewModel.comicsTabBarItemImage, selectedImage: nil)
+        favoriteController.tabBarItem = UITabBarItem(title: viewModel.favoriteTabBarItemTitle, image: viewModel.favoriteTabBarItemImage, selectedImage: nil)
         
-        return TabBar(viewControllers: [feedController, profileController])
+        return TabBar(viewControllers: [comicsController, favoriteController])
     }
 }
