@@ -7,7 +7,11 @@
 
 import UIKit
 
-class FavoriteViewController: UIViewController {
+class FavoriteViewController: UIViewController, UITableViewDelegate {
+        
+    let cellComicsID = "ComicsTableViewCell"
+            
+    let tableView = UITableView.init(frame: .zero, style: .plain)
         
     init(){
         super.init(nibName: nil, bundle: nil)
@@ -16,11 +20,26 @@ class FavoriteViewController: UIViewController {
     override func loadView() {
         let view = UIView()
         self.view = view
-        view.backgroundColor = .allBackgroundColor
+        view.backgroundColor = .white
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(ComicsTableViewCell.self, forCellReuseIdentifier: cellComicsID)
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
+        setUpConstraint()
+    }
+    
+    private func setUpConstraint() {
+        tableView.toAutoLayout()
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)])
     }
     
     required init?(coder: NSCoder) {
@@ -29,3 +48,21 @@ class FavoriteViewController: UIViewController {
 
 }
 
+extension FavoriteViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ComicsStore.shared.comics.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellComicsID, for: indexPath) as? ComicsTableViewCell else { fatalError()}
+        let myComics = ComicsStore.shared.comics[indexPath.row]
+        cell.comicsLabel.text = "\(myComics.title)"
+        cell.comicsImageView.loadFrom(URLAddress: myComics.img)
+        return cell
+    }
+}

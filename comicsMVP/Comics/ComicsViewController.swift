@@ -20,6 +20,7 @@ class ComicsViewController: UIViewController {
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         return label
     }()
     
@@ -74,6 +75,19 @@ class ComicsViewController: UIViewController {
     
     var randomButton: CustomButton = {
         let button = CustomButton(title: "Show random comics")
+        return button
+    }()
+    
+    var favoriteButton: CustomButton = {
+        let button = CustomButton(title: "")
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    var whatIsFunnyButton: CustomButton = {
+        let button = CustomButton(title: "What's so funny?")
+ 
         return button
     }()
     
@@ -140,9 +154,9 @@ class ComicsViewController: UIViewController {
         self.view.backgroundColor = viewModel.color
     }
     
-    func setUpConstraint() {
+    private func setUpConstraint() {
         self.view.addSubview(comicsScrollView)
-        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, showComicsLabel])
+        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, showComicsLabel, favoriteButton, whatIsFunnyButton])
         NSLayoutConstraint.activate([
             
             comicsScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -154,7 +168,7 @@ class ComicsViewController: UIViewController {
             randomButton.heightAnchor.constraint(equalToConstant: 50),
             randomButton.widthAnchor.constraint(equalToConstant: self.view.frame.width - 180),
             randomButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-          randomButton.leftAnchor.constraint(equalTo: comicsScrollView.leftAnchor, constant: 90),
+            randomButton.leftAnchor.constraint(equalTo: comicsScrollView.leftAnchor, constant: 90),
             
             prevButton.topAnchor.constraint(equalTo: randomButton.topAnchor),
             prevButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -179,13 +193,22 @@ class ComicsViewController: UIViewController {
             
             comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 10),
             comicsLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             comicsLabel.heightAnchor.constraint(equalToConstant: 50),
-            
+
             comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 10),
             comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             comicsImageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            comicsImageView.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20)
+            
+            whatIsFunnyButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
+            whatIsFunnyButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            whatIsFunnyButton.heightAnchor.constraint(equalToConstant: 50),
+            whatIsFunnyButton.widthAnchor.constraint(equalToConstant: 150),
+            
+            favoriteButton.topAnchor.constraint(equalTo: whatIsFunnyButton.topAnchor),
+            favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 50),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 50),
+            favoriteButton.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20),
         
         ])
     }

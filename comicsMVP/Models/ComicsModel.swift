@@ -13,5 +13,10 @@ class ComicsModel {
     
     var numberTextFieldPlaceholder = " max 2625"
     var showComicsLabelText = "I want comics number"
-
+/*
+    var prevButtonTitle = "< Prev"
+    var naxtButttonTitle = "Next >"
+    var numberButtonTitle = "Show"
+    var randomButtonTitle = "Show random comics"
+    var whattIsFunnyButtonTitle = "What's so funny?"*/
 }

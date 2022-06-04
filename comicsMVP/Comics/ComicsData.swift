@@ -21,3 +21,15 @@ public struct ComicsData: Codable {
     public var title: String
     public var day: String
 }
+
+public final class ComicsStore {
+    
+    public static let shared: ComicsStore = .init()
+    
+    public var comics: [ComicsData] = []
+    
+    public func appendComics(newComics: ComicsData) {
+        comics.append(newComics)
+    }
+    
+}
