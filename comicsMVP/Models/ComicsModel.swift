@@ -13,6 +13,7 @@ class ComicsModel {
     
     var showComicsLabelText = "I want comics number"
     var favouriteButtonImg = UIImage(systemName: "heart")
+    var conicsInfoButtonImg = UIImage(systemName: "info.circle")
 
  /*   var prevButtonTitle = "< Prev"
     var naxtButttonTitle = "Next >"

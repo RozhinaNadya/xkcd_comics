@@ -94,12 +94,18 @@ class ComicsViewController: UIViewController {
     
     var favoriteButton: CustomButton = {
         let button = CustomButton(title: "")
-        button.backgroundColor = .clear
+        button.tintColor = .white
         return button
     }()
     
     var whatIsFunnyButton: CustomButton = {
         let button = CustomButton(title: "What's so funny?")
+        return button
+    }()
+    
+    var comicsInfoButton: CustomButton = {
+        let button = CustomButton(title: "")
+        button.tintColor = .white
         return button
     }()
     
@@ -125,7 +131,11 @@ class ComicsViewController: UIViewController {
         nextButton.onTap = {self.goNextNumberComics()}
         favoriteButton.onTap = {self.addFavouriteComics()}
         whatIsFunnyButton.onTap = {
-            guard let num = self.comicsNum else {return}
+            guard let alt = self.comicsAlt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
+            self.showWhyFunny(alt: alt)
+        }
+        comicsInfoButton.onTap = {
+            guard let num = self.comicsNum else {return self.present(UIAlertController.notInfo, animated: true, completion: nil)}
             self.readAboutComics(num: num)
         }
     }
@@ -138,8 +148,9 @@ class ComicsViewController: UIViewController {
     }
     
     private func goNumberComics() {
-        guard let stringNumber = self.numberTextField.text else {return}
-        guard let number = Int(stringNumber) else { return }
+        guard let stringNumber = self.numberTextField.text else {return self.present(UIAlertController.noText, animated: true, completion: nil)}
+        guard let number = Int(stringNumber) else { return self.present(UIAlertController.wrongNumber, animated: true, completion: nil)
+        }
         let newComicsUrl = "https://xkcd.com/\(number)/info.0.json"
         self.getJson(urlString: newComicsUrl)
     }
@@ -172,6 +183,7 @@ class ComicsViewController: UIViewController {
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
         self.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
+        self.comicsInfoButton.setImage(viewModel.conicsInfoButtonImg, for: .normal)
     }
     
     private func addFavouriteComics() {
@@ -196,9 +208,15 @@ class ComicsViewController: UIViewController {
         UIApplication.shared.openURL(defaultURL as URL)
     }
     
+    private func showWhyFunny(alt: String) {
+        let alert = UIAlertController(title: "Explanation", message: alt, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     private func setUpConstraint() {
         self.view.addSubview(comicsScrollView)
-        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, showComicsLabel, favoriteButton, whatIsFunnyButton])
+        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, showComicsLabel, favoriteButton, whatIsFunnyButton, comicsInfoButton])
         NSLayoutConstraint.activate([
             
             comicsScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -241,8 +259,13 @@ class ComicsViewController: UIViewController {
             comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             comicsImageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             
+            comicsInfoButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
+            comicsInfoButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
+            
             whatIsFunnyButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
-            whatIsFunnyButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            whatIsFunnyButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             whatIsFunnyButton.heightAnchor.constraint(equalToConstant: 50),
             whatIsFunnyButton.widthAnchor.constraint(equalToConstant: 150),
             

@@ -23,6 +23,7 @@
 		841638A6284903D400F5873D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A5284903D400F5873D /* CustomButton.swift */; };
 		841638A828491FCA00F5873D /* ExtensionUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638A728491FCA00F5873D /* ExtensionUIImageView.swift */; };
 		841638AE284A446400F5873D /* ComicsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841638AD284A446400F5873D /* ComicsModel.swift */; };
+		84F7BFAD284F9F7000634C38 /* ExtensionUIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BFAC284F9F7000634C38 /* ExtensionUIAlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		841638A5284903D400F5873D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		841638A728491FCA00F5873D /* ExtensionUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImageView.swift; sourceTree = "<group>"; };
 		841638AD284A446400F5873D /* ComicsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsModel.swift; sourceTree = "<group>"; };
+		84F7BFAC284F9F7000634C38 /* ExtensionUIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIAlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				841638942848EC5500F5873D /* ExtensionUIView.swift */,
 				8416389D2848F1C100F5873D /* ExtensionUIColor.swift */,
 				841638A728491FCA00F5873D /* ExtensionUIImageView.swift */,
+				84F7BFAC284F9F7000634C38 /* ExtensionUIAlertController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				841638952848EC5600F5873D /* ExtensionUIView.swift in Sources */,
 				841638812848E37800F5873D /* FavoriteViewController.swift in Sources */,
 				841638A22849006800F5873D /* ComicsTableViewCell.swift in Sources */,
+				84F7BFAD284F9F7000634C38 /* ExtensionUIAlertController.swift in Sources */,
 				8416387D2848E37800F5873D /* AppDelegate.swift in Sources */,
 				8416389E2848F1C100F5873D /* ExtensionUIColor.swift in Sources */,
 				841638912848E62C00F5873D /* ComicsViewController.swift in Sources */,
