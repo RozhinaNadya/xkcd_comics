@@ -9,9 +9,9 @@ import UIKit
 
 class ComicsModel {
     var title = "xkcd"
-    var color: UIColor = .allBackgroundColor
+    var color: UIColor = .white
     
-    var showComicsLabelText = "I want comics number"
+//    var showComicsLabelText = "I want comics number"
     var favouriteButtonImg = UIImage(systemName: "heart")
     var conicsInfoButtonImg = UIImage(systemName: "info.circle")
 

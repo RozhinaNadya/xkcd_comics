@@ -24,13 +24,16 @@ class ComicsViewController: UIViewController {
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 2
         return label
     }()
     
     var comicsImageView: UIImageView = {
         let image = UIImageView()
         image.toAutoLayout()
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.black.cgColor
         return image
     }()
     
@@ -46,7 +49,7 @@ class ComicsViewController: UIViewController {
     var numberTextField: UITextField = {
         let text = UITextField()
         text.toAutoLayout()
-        text.backgroundColor = .white
+        text.backgroundColor = .systemGray5
         text.textColor = .black
         text.font = .systemFont(ofSize: 16)
         text.autocapitalizationType = .none
@@ -56,19 +59,19 @@ class ComicsViewController: UIViewController {
         return text
     }()
     
-    var showComicsLabel: UILabel = {
+    var numberRangeLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         return label
     }()
     
-    var prevButton: CustomButton = {
-        let button = CustomButton(title: "< Prev")
+    var prevButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "chevron.left")
         return button
     }()
     
-    var nextButton: CustomButton = {
-        let button = CustomButton(title: "Next >")
+    var nextButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "chevron.right")
         return button
     }()
     
@@ -78,7 +81,7 @@ class ComicsViewController: UIViewController {
     }()
     
     var randomButton: CustomButton = {
-        let button = CustomButton(title: "Show random comics")
+        let button = CustomButton(title: "Next random")
         return button
     }()
     
@@ -101,6 +104,7 @@ class ComicsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setUpViewModel()
         getJson(urlString: "https://xkcd.com/info.0.json")
+        numberTextField.placeholder = " I want comics number..."
     }
     
     override func loadView() {
@@ -179,7 +183,7 @@ class ComicsViewController: UIViewController {
     }
     
     private func setUpViewModel() {
-        showComicsLabel.text = self.viewModel.showComicsLabelText
+   //     showComicsLabel.text = self.viewModel.showComicsLabelText
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
         self.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
@@ -204,7 +208,7 @@ class ComicsViewController: UIViewController {
     
     private func setUpConstraint() {
         self.view.addSubview(comicsScrollView)
-        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, showComicsLabel, favoriteButton, whatIsFunnyButton, comicsInfoButton])
+        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, numberRangeLabel, favoriteButton, comicsInfoButton])
         NSLayoutConstraint.activate([
             
             comicsScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -212,56 +216,51 @@ class ComicsViewController: UIViewController {
             comicsScrollView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             comicsScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             
-            randomButton.topAnchor.constraint(equalTo: comicsScrollView.topAnchor, constant: 20),
-            randomButton.heightAnchor.constraint(equalToConstant: 50),
-            randomButton.widthAnchor.constraint(equalToConstant: self.view.frame.width - 180),
-            randomButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            randomButton.leftAnchor.constraint(equalTo: comicsScrollView.leftAnchor, constant: 90),
-            
-            prevButton.topAnchor.constraint(equalTo: randomButton.topAnchor),
-            prevButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            prevButton.heightAnchor.constraint(equalToConstant: 50),
-            prevButton.widthAnchor.constraint(equalToConstant: 60),
-            
-            nextButton.topAnchor.constraint(equalTo: randomButton.topAnchor),
-            nextButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.widthAnchor.constraint(equalToConstant: 60),
-
-            showComicsLabel.topAnchor.constraint(equalTo: randomButton.bottomAnchor, constant: 20),
-            showComicsLabel.leftAnchor.constraint(equalTo: prevButton.leftAnchor),
-            showComicsLabel.heightAnchor.constraint(equalToConstant: 50),
-
-            comicsNumberStackView.topAnchor.constraint(equalTo: showComicsLabel.topAnchor),
-            comicsNumberStackView.leftAnchor.constraint(equalTo: showComicsLabel.rightAnchor, constant: 5),
-            comicsNumberStackView.heightAnchor.constraint(equalToConstant: 50),
-            comicsNumberStackView.widthAnchor.constraint(equalToConstant: 145),
+            comicsNumberStackView.topAnchor.constraint(equalTo: comicsScrollView.topAnchor),
+            comicsNumberStackView.leftAnchor.constraint(equalTo: comicsScrollView.leftAnchor, constant: 20),
+            comicsNumberStackView.heightAnchor.constraint(equalToConstant: 30),
+            comicsNumberStackView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             numberTextField.widthAnchor.constraint(equalToConstant: 80),
             numberButton.widthAnchor.constraint(equalToConstant: 60),
             
-            comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 10),
+            comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 40),
             comicsLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            comicsLabel.heightAnchor.constraint(equalToConstant: 50),
+            comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: 140),
 
-            comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 10),
-            comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
-            comicsImageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            
-            whatIsFunnyButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
-            whatIsFunnyButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
-            whatIsFunnyButton.heightAnchor.constraint(equalToConstant: 50),
-            whatIsFunnyButton.widthAnchor.constraint(equalToConstant: 150),
-            
-            favoriteButton.topAnchor.constraint(equalTo: whatIsFunnyButton.topAnchor),
-            favoriteButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
+            favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             favoriteButton.heightAnchor.constraint(equalToConstant: 50),
             favoriteButton.widthAnchor.constraint(equalToConstant: 50),
-            favoriteButton.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20),
-        
-            comicsInfoButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
-            comicsInfoButton.leftAnchor.constraint(equalTo: favoriteButton.rightAnchor),
+            
+            comicsInfoButton.bottomAnchor.constraint(equalTo: favoriteButton.bottomAnchor),
+            comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor),
             comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
             comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 20),
+            comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            comicsImageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            
+            prevButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 20),
+            prevButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            prevButton.heightAnchor.constraint(equalToConstant: 50),
+            prevButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            numberRangeLabel.topAnchor.constraint(equalTo: prevButton.topAnchor),
+            numberRangeLabel.leftAnchor.constraint(equalTo: prevButton.rightAnchor),
+            numberRangeLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            nextButton.topAnchor.constraint(equalTo: numberRangeLabel.topAnchor),
+            nextButton.leftAnchor.constraint(equalTo: numberRangeLabel.rightAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 50),
+            nextButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            randomButton.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            randomButton.heightAnchor.constraint(equalToConstant: 50),
+            randomButton.widthAnchor.constraint(equalToConstant: 150),
+            randomButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            randomButton.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20)
+            
         ])
     }
     
@@ -316,8 +315,9 @@ extension ComicsViewController {
                 return
             }
             DispatchQueue.main.async {
-                self.numberTextField.placeholder = " max \(json.num)"
                 self.lastNum = json.num
+                self.numberRangeLabel.text = "\(json.num) of \(json.num))"
+
             }
         }).resume()
     }
