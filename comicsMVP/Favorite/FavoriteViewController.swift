@@ -32,6 +32,11 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
         setUpConstraint()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
+    }
+    
     private func setUpConstraint() {
         tableView.toAutoLayout()
         self.view.addSubview(tableView)
@@ -65,4 +70,13 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.comicsImageView.loadFrom(URLAddress: myComics.img)
         return cell
     }
+
+      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+          500
+        
+      }
+    
+
+
+
 }

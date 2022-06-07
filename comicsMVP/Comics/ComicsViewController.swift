@@ -11,7 +11,6 @@ class ComicsViewController: UIViewController {
     
     var viewModel = ComicsModel()
     
-//    var currentСomics: ComicsData?
     var comicsMonth: String?
     var comicsNum: Int?
     var comicsLink: String?
@@ -23,6 +22,8 @@ class ComicsViewController: UIViewController {
     var comicsDay: String?
     var comicsImg: String?
     var comicsTitle: String?
+    
+    var lastNum: Int?
     
     var comicsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -93,14 +94,12 @@ class ComicsViewController: UIViewController {
     
     var favoriteButton: CustomButton = {
         let button = CustomButton(title: "")
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.backgroundColor = .clear
         return button
     }()
     
     var whatIsFunnyButton: CustomButton = {
         let button = CustomButton(title: "What's so funny?")
- 
         return button
     }()
     
@@ -119,60 +118,63 @@ class ComicsViewController: UIViewController {
         super.viewDidLoad()
         setUpConstraint()
         goStack()
+        lastNumber()
         randomButton.onTap = {self.goRandomComics()}
         numberButton.onTap = {self.goNumberComics()}
         prevButton.onTap = {self.goPrevNumberComics()}
         nextButton.onTap = {self.goNextNumberComics()}
         favoriteButton.onTap = {self.addFavouriteComics()}
+        whatIsFunnyButton.onTap = {
+            guard let num = self.comicsNum else {return}
+            self.readAboutComics(num: num)
+        }
     }
     
-    func goRandomComics() {
-        let randomInt = Int.random(in: 1..<2625)
+    private func goRandomComics() {
+        guard let num = lastNum else {return print("last num in trouble")}
+        let randomInt = Int.random(in: 1..<num)
         let newComicsUrl = "https://xkcd.com/\(randomInt)/info.0.json"
         self.getJson(urlString: newComicsUrl)
     }
     
-    func goNumberComics() {
+    private func goNumberComics() {
         guard let stringNumber = self.numberTextField.text else {return}
         guard let number = Int(stringNumber) else { return }
         let newComicsUrl = "https://xkcd.com/\(number)/info.0.json"
         self.getJson(urlString: newComicsUrl)
     }
     
-    func goPrevNumberComics() {
-        print("goPrevNumberComics")
-        guard let stringNumber = self.numberTextField.text else {return}
-        guard var number = Int(stringNumber) else { return }
-        guard (number - 1) != nil else {return}
-        let newNumber: () = number -= 1
-        let newComicsUrl = "https://xkcd.com/\(newNumber)/info.0.json"
+    private func goPrevNumberComics() {
+        guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
+        guard ((num - 1) != 0) else {return}
+        let newComicsUrl = "https://xkcd.com/\(num - 1)/info.0.json"
         self.getJson(urlString: newComicsUrl)
     }
     
     func goNextNumberComics() {
-        guard let stringNumber = self.numberTextField.text else {return}
-        guard var number = Int(stringNumber) else { return }
-        let newNumber = (number -= 1)
+        guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
+        let newComicsUrl = "https://xkcd.com/\(num + 1)/info.0.json"
+        if NSURL(string: newComicsUrl) != nil {
+            self.getJson(urlString: newComicsUrl)
+        } else {
+            return
+        }
 
     }
     
-    func goStack() {
+    private func goStack() {
         self.comicsNumberStackView.addArrangedSubview(numberTextField)
         self.comicsNumberStackView.addArrangedSubview(numberButton)
     }
     
-    func setUpViewModel() {
-        numberTextField.placeholder = self.viewModel.numberTextFieldPlaceholder
+    private func setUpViewModel() {
         showComicsLabel.text = self.viewModel.showComicsLabelText
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
+        self.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
     }
     
-    func addFavouriteComics() {
-        print("addFavouriteComics work")
-        print(ComicsStore.shared.comics.count)
- //       guard let comics = self.currentСomics else { return print("not found")}
-   //     let favouriteComics = ComicsData(month: comics.month, num: comics.num, link: comics.link, year: comics.year, news: comics.news, safe_title: comics.safe_title, transcript: comics.transcript, alt: comics.alt, img: comics.img, title: comics.title, day: comics.day)
+    private func addFavouriteComics() {
         guard let month = comicsMonth else { return print("not found month")}
         guard let num = comicsNum else { return print("not found num")}
         guard let link = comicsLink else { return print("not found month")}
@@ -187,6 +189,11 @@ class ComicsViewController: UIViewController {
 
         let favouriteComics = ComicsData(month: month, num: num, link: link, year: year, news: news, safe_title: safe_title, transcript: transcript, alt: alt, img: img, title: title, day: day)
         ComicsStore.shared.comics.append(favouriteComics)
+    }
+    
+    private func readAboutComics(num: Int) {
+        let defaultURL = NSURL(string: "https://www.explainxkcd.com/wiki/index.php/\(num)")!
+        UIApplication.shared.openURL(defaultURL as URL)
     }
     
     private func setUpConstraint() {
@@ -255,7 +262,7 @@ class ComicsViewController: UIViewController {
 
 extension ComicsViewController {
     
-    func getJson(urlString: String) {
+    private func getJson(urlString: String) {
         guard let myURL = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: myURL, completionHandler: { data, response, error in
             guard let data = data, error == nil else {
@@ -274,18 +281,7 @@ extension ComicsViewController {
             DispatchQueue.main.async {
                 self.comicsLabel.text = json.title
                 self.comicsImageView.loadFrom(URLAddress: json.img)
-   /*             self.currentСomics?.img = "\(json.img)"
-                self.currentСomics?.day = "\(json.day)"
-                self.currentСomics?.alt = "\(json.alt)"
-                self.currentСomics?.transcript = "\(json.transcript)"
-                self.currentСomics?.safe_title = "\(json.safe_title)"
-                self.currentСomics?.news = "\(json.news)"
-                self.currentСomics?.year = "\(json.year)"
-                self.currentСomics?.title = "\(json.title)"
-                self.currentСomics?.link = "\(json.link)"
-                self.currentСomics?.month = "\(json.month)"
-                self.currentСomics?.num = json.num*/
-                
+            
                 self.comicsImg = json.img
                 self.comicsDay = json.day
                 self.comicsAlt = json.alt
@@ -297,7 +293,29 @@ extension ComicsViewController {
                 self.comicsLink = json.link
                 self.comicsMonth = json.month
                 self.comicsNum = json.num
-                
+            }
+        }).resume()
+    }
+    
+    private func lastNumber() {
+        guard let myURL = URL(string: "https://xkcd.com/info.0.json") else { fatalError() }
+        URLSession.shared.dataTask(with: myURL, completionHandler: { data, response, error in
+            guard let data = data, error == nil else {
+                print(error)
+                return
+            }
+            var comicsData: ComicsData?
+            do {
+                 comicsData = try JSONDecoder().decode(ComicsData.self, from: data)
+            } catch {
+                print(error.localizedDescription)
+            }
+            guard let json = comicsData else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.numberTextField.placeholder = " max \(json.num)"
+                self.lastNum = json.num
             }
         }).resume()
     }

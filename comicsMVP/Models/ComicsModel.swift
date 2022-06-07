@@ -11,10 +11,10 @@ class ComicsModel {
     var title = "xkcd"
     var color: UIColor = .allBackgroundColor
     
-    var numberTextFieldPlaceholder = " max 2625"
     var showComicsLabelText = "I want comics number"
-/*
-    var prevButtonTitle = "< Prev"
+    var favouriteButtonImg = UIImage(systemName: "heart")
+
+ /*   var prevButtonTitle = "< Prev"
     var naxtButttonTitle = "Next >"
     var numberButtonTitle = "Show"
     var randomButtonTitle = "Show random comics"
