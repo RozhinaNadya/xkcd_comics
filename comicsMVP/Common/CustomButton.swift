@@ -34,3 +34,28 @@ final class CustomButton: UIButton {
         onTap?()
     }
 }
+
+final class CustomButtonImage: UIButton {
+    private var imgName: String
+    var onTap: (() -> Void)?
+    
+    init(imgName: String) {
+        self.imgName = imgName
+        super.init(frame: .zero)
+        let config = UIImage.SymbolConfiguration(
+            pointSize: 25, weight: .medium, scale: .default)
+        let image = UIImage(systemName: imgName, withConfiguration: config)
+        setImage(image, for: .normal)
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        toAutoLayout()
+        backgroundColor = .clear
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func buttonTapped() {
+        onTap?()
+    }
+}

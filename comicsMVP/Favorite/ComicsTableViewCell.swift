@@ -22,11 +22,20 @@ class ComicsTableViewCell: UITableViewCell {
         return image
     }()
     
-    var favoriteButton: CustomButton = {
-        let button = CustomButton(title: "")
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        button.backgroundColor = .clear
+    var favoriteButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "heart.fill")
         return button
+    }()
+    
+    var whatIsFunnyButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "questionmark.circle")
+        return button
+    }()
+    
+    var comicsInfoButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "info.circle")
+        return button
+
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -35,7 +44,7 @@ class ComicsTableViewCell: UITableViewCell {
     }
     
     private func setUpConstraint() {
-        contentView.addSubviews([comicsLabel, comicsImageView, favoriteButton])
+        contentView.addSubviews([comicsLabel, comicsImageView, favoriteButton, whatIsFunnyButton, comicsInfoButton])
         NSLayoutConstraint.activate([
 
             comicsLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -45,12 +54,25 @@ class ComicsTableViewCell: UITableViewCell {
             comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 10),
             comicsImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             comicsImageView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-
+            
             favoriteButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
             favoriteButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
             favoriteButton.heightAnchor.constraint(equalToConstant: 50),
             favoriteButton.widthAnchor.constraint(equalToConstant: 50),
             favoriteButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+
+            whatIsFunnyButton.topAnchor.constraint(equalTo: favoriteButton.topAnchor),
+            whatIsFunnyButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor),
+            whatIsFunnyButton.heightAnchor.constraint(equalToConstant: 50),
+            whatIsFunnyButton.widthAnchor.constraint(equalToConstant: 50),
+            whatIsFunnyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            comicsInfoButton.topAnchor.constraint(equalTo: favoriteButton.topAnchor),
+            comicsInfoButton.rightAnchor.constraint(equalTo: whatIsFunnyButton.leftAnchor),
+            comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
             ])
     }
     

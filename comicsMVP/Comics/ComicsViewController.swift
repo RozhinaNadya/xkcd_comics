@@ -79,6 +79,7 @@ class ComicsViewController: UIViewController {
     
     var nextButton: CustomButton = {
         let button = CustomButton(title: "Next >")
+   //     button.backgroundColor = .lightGray
         return button
     }()
     
@@ -92,9 +93,8 @@ class ComicsViewController: UIViewController {
         return button
     }()
     
-    var favoriteButton: CustomButton = {
-        let button = CustomButton(title: "")
-        button.tintColor = .white
+    var favoriteButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "heart.fill")
         return button
     }()
     
@@ -103,9 +103,8 @@ class ComicsViewController: UIViewController {
         return button
     }()
     
-    var comicsInfoButton: CustomButton = {
-        let button = CustomButton(title: "")
-        button.tintColor = .white
+    var comicsInfoButton: CustomButtonImage = {
+        let button = CustomButtonImage(imgName: "info.circle")
         return button
     }()
     
@@ -145,6 +144,7 @@ class ComicsViewController: UIViewController {
         let randomInt = Int.random(in: 1..<num)
         let newComicsUrl = "https://xkcd.com/\(randomInt)/info.0.json"
         self.getJson(urlString: newComicsUrl)
+        self.nextButton.backgroundColor = UIColor(named: "AccentColor")
     }
     
     private func goNumberComics() {
@@ -157,20 +157,20 @@ class ComicsViewController: UIViewController {
     
     private func goPrevNumberComics() {
         guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
-        guard ((num - 1) != 0) else {return}
+        guard ((num - 1) != 0) else { return self.present(UIAlertController.firstComics, animated: true, completion: nil)
+        }
         let newComicsUrl = "https://xkcd.com/\(num - 1)/info.0.json"
         self.getJson(urlString: newComicsUrl)
     }
     
-    func goNextNumberComics() {
+    private func goNextNumberComics() {
         guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
-        let newComicsUrl = "https://xkcd.com/\(num + 1)/info.0.json"
-        if NSURL(string: newComicsUrl) != nil {
-            self.getJson(urlString: newComicsUrl)
+        if num == lastNum {
+            self.present(UIAlertController.lastComics, animated: true, completion: nil)
         } else {
-            return
+            let newComicsUrl = "https://xkcd.com/\(num + 1)/info.0.json"
+            self.getJson(urlString: newComicsUrl)
         }
-
     }
     
     private func goStack() {
@@ -259,22 +259,21 @@ class ComicsViewController: UIViewController {
             comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             comicsImageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             
-            comicsInfoButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
-            comicsInfoButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
-            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
-            
             whatIsFunnyButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
-            whatIsFunnyButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            whatIsFunnyButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             whatIsFunnyButton.heightAnchor.constraint(equalToConstant: 50),
             whatIsFunnyButton.widthAnchor.constraint(equalToConstant: 150),
             
             favoriteButton.topAnchor.constraint(equalTo: whatIsFunnyButton.topAnchor),
-            favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            favoriteButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             favoriteButton.heightAnchor.constraint(equalToConstant: 50),
             favoriteButton.widthAnchor.constraint(equalToConstant: 50),
             favoriteButton.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20),
         
+            comicsInfoButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 10),
+            comicsInfoButton.leftAnchor.constraint(equalTo: favoriteButton.rightAnchor),
+            comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
         ])
     }
     
