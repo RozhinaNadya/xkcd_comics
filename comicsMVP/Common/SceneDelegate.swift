@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarModel = TabBarModel()
         
         let comicsNavigationController = UINavigationController(rootViewController: ComicsViewController())
-        let favoriteNavigationController = UINavigationController(rootViewController: FavoriteViewController())
+        let favoriteNavigationController = UINavigationController(rootViewController: FavoriteViewController(title: "Favourite comics"))
         
         window.rootViewController = factory.makeTabBar(viewModel: tabBarModel, comicsController: comicsNavigationController, favoriteController: favoriteNavigationController)
         window.makeKeyAndVisible()

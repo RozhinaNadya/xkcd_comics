@@ -8,13 +8,14 @@
 import UIKit
 
 class FavoriteViewController: UIViewController, UITableViewDelegate {
-        
+                
     let cellComicsID = "ComicsTableViewCell"
             
     let tableView = UITableView.init(frame: .zero, style: .plain)
         
-    init(){
+    init(title: String){
         super.init(nibName: nil, bundle: nil)
+        self.title = title
     }
     
     override func loadView() {
@@ -68,15 +69,15 @@ extension FavoriteViewController: UITableViewDataSource {
         let myComics = ComicsStore.shared.comics[indexPath.row]
         cell.comicsLabel.text = "\(myComics.title)"
         cell.comicsImageView.loadFrom(URLAddress: myComics.img)
+        cell.comicsTableNumber = myComics.num
+        cell.altLabel.text = myComics.alt
+        cell.layer.borderWidth = 3
+        cell.layer.borderColor = UIColor.allBackgroundColor.cgColor
         return cell
     }
 
-      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           500
-        
       }
-    
-
-
 
 }

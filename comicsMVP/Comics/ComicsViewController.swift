@@ -8,20 +8,10 @@
 import UIKit
 
 class ComicsViewController: UIViewController {
-    
+            
     var viewModel = ComicsModel()
     
-    var comicsMonth: String?
-    var comicsNum: Int?
-    var comicsLink: String?
-    var comicsYear: String?
-    var comicsNews: String?
-    var comicsSafe_title: String?
-    var comicsTranscript: String?
-    var comicsAlt: String?
-    var comicsDay: String?
-    var comicsImg: String?
-    var comicsTitle: String?
+    var currentComics: ComicsData?
     
     var lastNum: Int?
     
@@ -79,7 +69,6 @@ class ComicsViewController: UIViewController {
     
     var nextButton: CustomButton = {
         let button = CustomButton(title: "Next >")
-   //     button.backgroundColor = .lightGray
         return button
     }()
     
@@ -94,7 +83,7 @@ class ComicsViewController: UIViewController {
     }()
     
     var favoriteButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "heart.fill")
+        let button = CustomButtonImage(imgName: "heart")
         return button
     }()
     
@@ -129,16 +118,27 @@ class ComicsViewController: UIViewController {
         prevButton.onTap = {self.goPrevNumberComics()}
         nextButton.onTap = {self.goNextNumberComics()}
         favoriteButton.onTap = {self.addFavouriteComics()}
-        whatIsFunnyButton.onTap = {
-            guard let alt = self.comicsAlt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
-            self.showWhyFunny(alt: alt)
-        }
-        comicsInfoButton.onTap = {
-            guard let num = self.comicsNum else {return self.present(UIAlertController.notInfo, animated: true, completion: nil)}
-            self.readAboutComics(num: num)
-        }
+        whatIsFunnyButton.onTap = {self.goWhatIsFunnyButton()}
+        comicsInfoButton.onTap = {self.goComicsInfoButton()}
     }
     
+    private func imageFavouriteButton(myComics: ComicsData) {
+
+        let img = ComicsStore.shared.comics.contains(myComics) ? "heart.fill" : "heart"
+        self.favoriteButton.setImage(UIImage(systemName: img), for: .normal)
+    }
+    
+    private func goWhatIsFunnyButton() {
+        guard let alt = self.currentComics?.alt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
+
+        self.showWhyFunny(alt: alt)
+    }
+    
+    private func goComicsInfoButton() {
+        guard let num: Int = self.currentComics?.num else {return self.present(UIAlertController.notInfo, animated: true, completion: nil)}
+        self.readAboutComics(num: num)
+    }
+        
     private func goRandomComics() {
         guard let num = lastNum else {return print("last num in trouble")}
         let randomInt = Int.random(in: 1..<num)
@@ -156,7 +156,7 @@ class ComicsViewController: UIViewController {
     }
     
     private func goPrevNumberComics() {
-        guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
+        guard let num: Int = self.currentComics?.num else {return print("currentComics?.num")}
         guard ((num - 1) != 0) else { return self.present(UIAlertController.firstComics, animated: true, completion: nil)
         }
         let newComicsUrl = "https://xkcd.com/\(num - 1)/info.0.json"
@@ -164,7 +164,7 @@ class ComicsViewController: UIViewController {
     }
     
     private func goNextNumberComics() {
-        guard let num: Int = self.comicsNum else {return print("not found self.comicsNum")}
+        guard let num: Int = self.currentComics?.num else {return print("currentComics?.num")}
         if num == lastNum {
             self.present(UIAlertController.lastComics, animated: true, completion: nil)
         } else {
@@ -187,20 +187,8 @@ class ComicsViewController: UIViewController {
     }
     
     private func addFavouriteComics() {
-        guard let month = comicsMonth else { return print("not found month")}
-        guard let num = comicsNum else { return print("not found num")}
-        guard let link = comicsLink else { return print("not found month")}
-        guard let year = comicsYear else { return print("not found year")}
-        guard let news = comicsNews else { return print("not found news")}
-        guard let safe_title = comicsSafe_title else { return print("not found safe_title")}
-        guard let transcript = comicsTranscript else { return print("not found transcript")}
-        guard let alt = comicsAlt else { return print("not found alt")}
-        guard let img = comicsImg else { return print("not found img")}
-        guard let title = comicsTitle else { return print("not found title")}
-        guard let day = comicsDay else { return print("not found day")}
-
-        let favouriteComics = ComicsData(month: month, num: num, link: link, year: year, news: news, safe_title: safe_title, transcript: transcript, alt: alt, img: img, title: title, day: day)
-        ComicsStore.shared.comics.append(favouriteComics)
+        guard let comics = self.currentComics else {return}
+        ComicsStore.shared.comics.append(comics)
     }
     
     private func readAboutComics(num: Int) {
@@ -303,18 +291,10 @@ extension ComicsViewController {
             DispatchQueue.main.async {
                 self.comicsLabel.text = json.title
                 self.comicsImageView.loadFrom(URLAddress: json.img)
-            
-                self.comicsImg = json.img
-                self.comicsDay = json.day
-                self.comicsAlt = json.alt
-                self.comicsTranscript = json.transcript
-                self.comicsSafe_title = json.safe_title
-                self.comicsNews = json.news
-                self.comicsYear = json.year
-                self.comicsTitle = json.title
-                self.comicsLink = json.link
-                self.comicsMonth = json.month
-                self.comicsNum = json.num
+                
+                self.currentComics = json
+                                
+                self.imageFavouriteButton(myComics: json)
             }
         }).resume()
     }
