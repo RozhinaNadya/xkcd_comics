@@ -11,6 +11,19 @@ class ComicsViewController: UIViewController {
     
     var viewModel = ComicsModel()
     
+//    var currentСomics: ComicsData?
+    var comicsMonth: String?
+    var comicsNum: Int?
+    var comicsLink: String?
+    var comicsYear: String?
+    var comicsNews: String?
+    var comicsSafe_title: String?
+    var comicsTranscript: String?
+    var comicsAlt: String?
+    var comicsDay: String?
+    var comicsImg: String?
+    var comicsTitle: String?
+    
     var comicsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -94,6 +107,7 @@ class ComicsViewController: UIViewController {
     init(){
         super.init(nibName: nil, bundle: nil)
         setUpViewModel()
+        getJson(urlString: "https://xkcd.com/info.0.json")
     }
     
     override func loadView() {
@@ -105,11 +119,11 @@ class ComicsViewController: UIViewController {
         super.viewDidLoad()
         setUpConstraint()
         goStack()
-        getJson(urlString: "https://xkcd.com/info.0.json")
         randomButton.onTap = {self.goRandomComics()}
         numberButton.onTap = {self.goNumberComics()}
         prevButton.onTap = {self.goPrevNumberComics()}
         nextButton.onTap = {self.goNextNumberComics()}
+        favoriteButton.onTap = {self.addFavouriteComics()}
     }
     
     func goRandomComics() {
@@ -152,6 +166,27 @@ class ComicsViewController: UIViewController {
         showComicsLabel.text = self.viewModel.showComicsLabelText
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
+    }
+    
+    func addFavouriteComics() {
+        print("addFavouriteComics work")
+        print(ComicsStore.shared.comics.count)
+ //       guard let comics = self.currentСomics else { return print("not found")}
+   //     let favouriteComics = ComicsData(month: comics.month, num: comics.num, link: comics.link, year: comics.year, news: comics.news, safe_title: comics.safe_title, transcript: comics.transcript, alt: comics.alt, img: comics.img, title: comics.title, day: comics.day)
+        guard let month = comicsMonth else { return print("not found month")}
+        guard let num = comicsNum else { return print("not found num")}
+        guard let link = comicsLink else { return print("not found month")}
+        guard let year = comicsYear else { return print("not found year")}
+        guard let news = comicsNews else { return print("not found news")}
+        guard let safe_title = comicsSafe_title else { return print("not found safe_title")}
+        guard let transcript = comicsTranscript else { return print("not found transcript")}
+        guard let alt = comicsAlt else { return print("not found alt")}
+        guard let img = comicsImg else { return print("not found img")}
+        guard let title = comicsTitle else { return print("not found title")}
+        guard let day = comicsDay else { return print("not found day")}
+
+        let favouriteComics = ComicsData(month: month, num: num, link: link, year: year, news: news, safe_title: safe_title, transcript: transcript, alt: alt, img: img, title: title, day: day)
+        ComicsStore.shared.comics.append(favouriteComics)
     }
     
     private func setUpConstraint() {
@@ -239,6 +274,30 @@ extension ComicsViewController {
             DispatchQueue.main.async {
                 self.comicsLabel.text = json.title
                 self.comicsImageView.loadFrom(URLAddress: json.img)
+   /*             self.currentСomics?.img = "\(json.img)"
+                self.currentСomics?.day = "\(json.day)"
+                self.currentСomics?.alt = "\(json.alt)"
+                self.currentСomics?.transcript = "\(json.transcript)"
+                self.currentСomics?.safe_title = "\(json.safe_title)"
+                self.currentСomics?.news = "\(json.news)"
+                self.currentСomics?.year = "\(json.year)"
+                self.currentСomics?.title = "\(json.title)"
+                self.currentСomics?.link = "\(json.link)"
+                self.currentСomics?.month = "\(json.month)"
+                self.currentСomics?.num = json.num*/
+                
+                self.comicsImg = json.img
+                self.comicsDay = json.day
+                self.comicsAlt = json.alt
+                self.comicsTranscript = json.transcript
+                self.comicsSafe_title = json.safe_title
+                self.comicsNews = json.news
+                self.comicsYear = json.year
+                self.comicsTitle = json.title
+                self.comicsLink = json.link
+                self.comicsMonth = json.month
+                self.comicsNum = json.num
+                
             }
         }).resume()
     }
