@@ -11,7 +11,7 @@ class ComicsModel {
     var title = "xkcd"
     var color: UIColor = .white
     
-    var numberTextFieldPlaceholder = " I want comics number..."
+    var numberTextFieldPlaceholder = "I want comics number..."
     var favouriteButtonImg = UIImage(systemName: "heart")
     var comicsInfoButtonImg = UIImage(systemName: "questionmark.circle")
     var prevButtonImg = UIImage(systemName: "chevron.left")

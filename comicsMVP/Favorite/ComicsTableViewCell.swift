@@ -90,7 +90,7 @@ class ComicsTableViewCell: UITableViewCell {
             comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             comicsImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsImageView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
-            comicsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            comicsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40),
             ])
     }
     

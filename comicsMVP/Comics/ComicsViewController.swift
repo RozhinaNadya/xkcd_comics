@@ -36,7 +36,7 @@ class ComicsViewController: UIViewController {
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 2
         return label
     }()
@@ -61,6 +61,8 @@ class ComicsViewController: UIViewController {
     var numberTextField: UITextField = {
         let text = UITextField()
         text.toAutoLayout()
+        text.indent(size: 10)
+        text.keyboardType = .asciiCapableNumberPad
         text.backgroundColor = .systemGray5
         text.textColor = .black
         text.font = .systemFont(ofSize: 16)
@@ -99,6 +101,13 @@ class ComicsViewController: UIViewController {
         nextButton.onTap = {self.goNextNumberComics()}
         favoriteButton.onTap = {self.addFavouriteComics()}
         comicsInfoButton.onTap = {self.goWhatIsFunnyButton()}
+        self.hideKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let comicsForCheck = currentComics else {return}
+        self.imageFavouriteButton(myComics: comicsForCheck)
     }
     
     private func numberRangeLabelPlaceholder() {
@@ -135,14 +144,28 @@ class ComicsViewController: UIViewController {
         let randomInt = Int.random(in: 1..<num)
         let newComicsUrl = "https://xkcd.com/\(randomInt)/info.0.json"
         self.getJson(urlString: newComicsUrl)
+        numberTextField.text?.removeAll()
     }
     
     private func goNumberComics() {
-        guard let stringNumber = self.numberTextField.text else {return self.present(UIAlertController.noText, animated: true, completion: nil)}
+        guard let stringNumber = self.numberTextField.text else {return
+            self.present(UIAlertController.noText, animated: true, completion: nil)}
+        print(stringNumber)
         guard let number = Int(stringNumber) else { return self.present(UIAlertController.wrongNumber, animated: true, completion: nil)
         }
+        guard let checkNum = self.lastNum else {return}
+        if number > checkNum {
+            self.present(UIAlertController.noComics, animated: true, completion: nil)
+        } else {
         let newComicsUrl = "https://xkcd.com/\(number)/info.0.json"
         self.getJson(urlString: newComicsUrl)
+        }
+        textFieldShouldReturn(numberTextField)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     private func goPrevNumberComics() {
@@ -204,7 +227,7 @@ class ComicsViewController: UIViewController {
     
     private func setUpConstraint() {
         self.view.addSubview(comicsScrollView)
-        comicsScrollView.addSubviews([comicsNumberStackView, randomButton, comicsLabel, comicsImageView, prevButton, nextButton, numberRangeLabel, favoriteButton, comicsInfoButton])
+        comicsScrollView.addSubviews([randomButton, comicsLabel, comicsImageView, prevButton, nextButton, numberRangeLabel, favoriteButton, comicsInfoButton, comicsNumberStackView])
         NSLayoutConstraint.activate([
             
             comicsScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -213,13 +236,13 @@ class ComicsViewController: UIViewController {
             comicsScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             
             comicsNumberStackView.topAnchor.constraint(equalTo: comicsScrollView.topAnchor),
-            comicsNumberStackView.leftAnchor.constraint(equalTo: comicsScrollView.leftAnchor, constant: 20),
-            comicsNumberStackView.heightAnchor.constraint(equalToConstant: 30),
+            comicsNumberStackView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            comicsNumberStackView.heightAnchor.constraint(equalToConstant: 50),
             comicsNumberStackView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             numberTextField.widthAnchor.constraint(equalToConstant: 80),
             numberButton.widthAnchor.constraint(equalToConstant: 60),
             
-            comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 40),
+            comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 20),
             comicsLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -140),
 
@@ -240,7 +263,7 @@ class ComicsViewController: UIViewController {
             prevButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor, constant: 20),
             prevButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             prevButton.heightAnchor.constraint(equalToConstant: 50),
-            prevButton.widthAnchor.constraint(equalToConstant: 50),
+            prevButton.widthAnchor.constraint(equalToConstant: 25),
             
             numberRangeLabel.topAnchor.constraint(equalTo: prevButton.topAnchor),
             numberRangeLabel.leftAnchor.constraint(equalTo: prevButton.rightAnchor),
@@ -249,7 +272,7 @@ class ComicsViewController: UIViewController {
             nextButton.topAnchor.constraint(equalTo: numberRangeLabel.topAnchor),
             nextButton.leftAnchor.constraint(equalTo: numberRangeLabel.rightAnchor),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.widthAnchor.constraint(equalToConstant: 50),
+            nextButton.widthAnchor.constraint(equalToConstant: 25),
             
             randomButton.topAnchor.constraint(equalTo: nextButton.topAnchor),
             randomButton.heightAnchor.constraint(equalToConstant: 50),

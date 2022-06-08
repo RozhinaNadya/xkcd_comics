@@ -38,6 +38,11 @@ extension UIAlertController {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alert
     }
+    class var noComics: UIAlertController {
+        let alert = UIAlertController(title: "Sorry", message: "We don't have so many comics :(", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        return alert
+    }
     
     class var firstComics: UIAlertController {
         let alert = UIAlertController(title: "Sorry", message: "The first comics on the screen", preferredStyle: .alert)
