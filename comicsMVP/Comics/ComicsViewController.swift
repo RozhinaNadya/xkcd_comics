@@ -90,11 +90,6 @@ class ComicsViewController: UIViewController {
         return button
     }()
     
-    var whatIsFunnyButton: CustomButton = {
-        let button = CustomButton(title: "What's so funny?")
-        return button
-    }()
-    
     var comicsInfoButton: CustomButtonImage = {
         let button = CustomButtonImage(imgName: "info.circle")
         return button
@@ -103,13 +98,13 @@ class ComicsViewController: UIViewController {
     init(){
         super.init(nibName: nil, bundle: nil)
         setUpViewModel()
-        getJson(urlString: "https://xkcd.com/info.0.json")
         numberTextField.placeholder = " I want comics number..."
     }
     
     override func loadView() {
         let view = UIView()
         self.view = view
+        getJson(urlString: "https://xkcd.com/info.0.json")
     }
     
     override func viewDidLoad() {
@@ -122,8 +117,13 @@ class ComicsViewController: UIViewController {
         prevButton.onTap = {self.goPrevNumberComics()}
         nextButton.onTap = {self.goNextNumberComics()}
         favoriteButton.onTap = {self.addFavouriteComics()}
-        whatIsFunnyButton.onTap = {self.goWhatIsFunnyButton()}
-        comicsInfoButton.onTap = {self.goComicsInfoButton()}
+        comicsInfoButton.onTap = {self.goWhatIsFunnyButton()}
+    }
+    
+    private func numberRangeLabelPlaceholder() {
+        guard let currentNumber = self.currentComics?.num else {return}
+        guard let lastNumber = self.lastNum else {return}
+        numberRangeLabel.text = "\(currentNumber) of \(lastNumber)"
     }
     
     private func imageFavouriteButton(myComics: ComicsData) {
@@ -134,7 +134,6 @@ class ComicsViewController: UIViewController {
     
     private func goWhatIsFunnyButton() {
         guard let alt = self.currentComics?.alt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
-
         self.showWhyFunny(alt: alt)
     }
     
@@ -148,7 +147,6 @@ class ComicsViewController: UIViewController {
         let randomInt = Int.random(in: 1..<num)
         let newComicsUrl = "https://xkcd.com/\(randomInt)/info.0.json"
         self.getJson(urlString: newComicsUrl)
-        self.nextButton.backgroundColor = UIColor(named: "AccentColor")
     }
     
     private func goNumberComics() {
@@ -168,7 +166,7 @@ class ComicsViewController: UIViewController {
     }
     
     private func goNextNumberComics() {
-        guard let num: Int = self.currentComics?.num else {return print("currentComics?.num")}
+        guard let num: Int = self.currentComics?.num else {return}
         if num == lastNum {
             self.present(UIAlertController.lastComics, animated: true, completion: nil)
         } else {
@@ -183,7 +181,6 @@ class ComicsViewController: UIViewController {
     }
     
     private func setUpViewModel() {
-   //     showComicsLabel.text = self.viewModel.showComicsLabelText
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
         self.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
@@ -193,6 +190,7 @@ class ComicsViewController: UIViewController {
     private func addFavouriteComics() {
         guard let comics = self.currentComics else {return}
         ComicsStore.shared.comics.append(comics)
+        imageFavouriteButton(myComics: comics)
     }
     
     private func readAboutComics(num: Int) {
@@ -203,6 +201,7 @@ class ComicsViewController: UIViewController {
     private func showWhyFunny(alt: String) {
         let alert = UIAlertController(title: "Explanation", message: alt, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Show more", style: .default, handler: {(action) -> Void in self.goComicsInfoButton()}))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -260,7 +259,6 @@ class ComicsViewController: UIViewController {
             randomButton.widthAnchor.constraint(equalToConstant: 150),
             randomButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             randomButton.bottomAnchor.constraint(equalTo: comicsScrollView.bottomAnchor, constant: -20)
-            
         ])
     }
     
@@ -290,10 +288,9 @@ extension ComicsViewController {
             DispatchQueue.main.async {
                 self.comicsLabel.text = json.title
                 self.comicsImageView.loadFrom(URLAddress: json.img)
-                
                 self.currentComics = json
-                                
                 self.imageFavouriteButton(myComics: json)
+                self.numberRangeLabelPlaceholder()
             }
         }).resume()
     }
@@ -316,8 +313,8 @@ extension ComicsViewController {
             }
             DispatchQueue.main.async {
                 self.lastNum = json.num
-                self.numberRangeLabel.text = "\(json.num) of \(json.num))"
-
+                self.currentComics = json
+                self.numberRangeLabelPlaceholder()
             }
         }).resume()
     }
