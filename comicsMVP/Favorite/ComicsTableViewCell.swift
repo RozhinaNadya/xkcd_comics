@@ -13,6 +13,10 @@ class ComicsTableViewCell: UITableViewCell {
     
     var delegate: ComicsTableViewCellDelegate?
     
+    var favoriteButton = CustomButtonImage()
+    
+    var comicsInfoButton = CustomButtonImage()
+    
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
@@ -27,20 +31,6 @@ class ComicsTableViewCell: UITableViewCell {
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.black.cgColor
         return image
-    }()
-    
-    var favoriteButton: CustomButtonImage = {
-        let button = CustomButtonImage()
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        return button
-    }()
-    
-    var comicsInfoButton: CustomButtonImage = {
-        let button = CustomButtonImage()
-        button.setImage(UIImage(systemName: "info.circle"), for: .normal)
-
-        return button
-
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

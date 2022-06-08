@@ -121,7 +121,7 @@ class ComicsViewController: UIViewController {
     }
     
     private func goWhatIsFunnyButton() {
-        guard let alt = self.currentComics?.alt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
+        guard let alt = self.currentComics?.alt else {return self.present(UIAlertController.whyFunnyError, animated: true, completion: nil)}
         self.showWhyFunny(alt: alt)
     }
     
@@ -221,7 +221,7 @@ class ComicsViewController: UIViewController {
             
             comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 40),
             comicsLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: 140),
+            comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -140),
 
             favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),

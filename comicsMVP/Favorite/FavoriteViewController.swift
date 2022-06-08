@@ -8,6 +8,8 @@
 import UIKit
 
 class FavoriteViewController: UIViewController, UITableViewDelegate {
+    
+    var viewModel = FavouriteComicsModel()
                 
     let cellComicsID = "ComicsTableViewCell"
     
@@ -15,15 +17,15 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
             
     let tableView = UITableView.init(frame: .zero, style: .plain)
             
-    init(title: String){
+    init(){
         super.init(nibName: nil, bundle: nil)
-        self.title = title
+        self.title = viewModel.title
     }
     
     override func loadView() {
         let view = UIView()
         self.view = view
-        view.backgroundColor = .white
+        view.backgroundColor = viewModel.color
     }
     
     override func viewDidLoad() {
@@ -81,6 +83,9 @@ extension FavoriteViewController: UITableViewDataSource {
             cell.deleteComics(comicsForDelete: myComics)
         }
         cell.imageFavouriteButton(myComics: myComics)
+        cell.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
+        cell.comicsInfoButton.setImage(viewModel.comicsInfoButtonImg, for: .normal)
+
         return cell
     }
 

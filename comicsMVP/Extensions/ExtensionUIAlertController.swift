@@ -21,7 +21,7 @@ extension UIAlertController {
         return alert
     }
     
-    class var whyFunny: UIAlertController {
+    class var whyFunnyError: UIAlertController {
         let alert = UIAlertController(title: "Sorry", message: "Buddy, I don't understand why this is so funny...", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alert
