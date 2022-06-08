@@ -228,13 +228,13 @@ class ComicsViewController: UIViewController {
 
             favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 50),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 25),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 25),
             
             comicsInfoButton.bottomAnchor.constraint(equalTo: favoriteButton.bottomAnchor),
-            comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor),
-            comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
-            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor, constant: -10),
+            comicsInfoButton.heightAnchor.constraint(equalToConstant: 25),
+            comicsInfoButton.widthAnchor.constraint(equalToConstant: 25),
             
             comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 20),
             comicsImageView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),

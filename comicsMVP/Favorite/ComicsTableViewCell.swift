@@ -11,16 +11,10 @@ class ComicsTableViewCell: UITableViewCell {
     
     var comicsTableNumber: Int?
     
-    var altLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
+        label.numberOfLines = 2
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
@@ -28,6 +22,8 @@ class ComicsTableViewCell: UITableViewCell {
     var comicsImageView: UIImageView = {
         let image = UIImageView()
         image.toAutoLayout()
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.black.cgColor
         return image
     }()
     
@@ -46,44 +42,45 @@ class ComicsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpConstraint()
         backgroundColor = .white
-        comicsInfoButton.onTap = {
-            guard let num = self.comicsTableNumber else {return}
-            self.readAboutComics(num: num)
-        }
     }
     
-    private func readAboutComics(num: Int) {
+    func showWhyFunny(alt: String) -> UIAlertController {
+        let alert = UIAlertController(title: "Explanation", message: alt, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Show more", style: .default, handler: {(action) -> Void in
+            guard let num = self.comicsTableNumber else {return}
+            self.readAboutComics(num: num)}))
+        return alert
+    }
+    
+    func readAboutComics(num: Int) {
         let defaultURL = NSURL(string: "https://www.explainxkcd.com/wiki/index.php/\(num)")!
         UIApplication.shared.openURL(defaultURL as URL)
     }
     
     private func setUpConstraint() {
-        contentView.addSubviews([comicsLabel, comicsImageView, favoriteButton, altLabel, comicsInfoButton])
+        contentView.addSubviews([comicsLabel, comicsImageView, favoriteButton, comicsInfoButton])
         NSLayoutConstraint.activate([
 
             comicsLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            comicsLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10),
+            comicsLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsLabel.heightAnchor.constraint(equalToConstant: 50),
-
-            comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
-            comicsImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
-            comicsImageView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
+            comicsLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width/2),
             
-            altLabel.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor),
-            altLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10),
-            altLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10),
-            altLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            
-            favoriteButton.topAnchor.constraint(equalTo: comicsImageView.bottomAnchor),
-            favoriteButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10),
+            favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
+            favoriteButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
             favoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 50),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 25),
             
             comicsInfoButton.topAnchor.constraint(equalTo: favoriteButton.topAnchor),
-            comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor),
+            comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor, constant: -10),
             comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
-            comicsInfoButton.widthAnchor.constraint(equalToConstant: 50),
+            comicsInfoButton.widthAnchor.constraint(equalToConstant: 25),
 
+            comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
+            comicsImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
+            comicsImageView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
+            comicsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             ])
     }
     

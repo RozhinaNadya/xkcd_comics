@@ -31,6 +31,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         setUpConstraint()
+        tableView.separatorStyle = .none
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,7 +52,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 extension FavoriteViewController: UITableViewDataSource {
@@ -70,14 +70,14 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.comicsLabel.text = "\(myComics.title)"
         cell.comicsImageView.loadFrom(URLAddress: myComics.img)
         cell.comicsTableNumber = myComics.num
-        cell.altLabel.text = myComics.alt
-        cell.layer.borderWidth = 3
-        cell.layer.borderColor = UIColor.allBackgroundColor.cgColor
+        cell.comicsInfoButton.onTap = {
+            let alert = cell.showWhyFunny(alt: myComics.alt)
+            self.present(alert, animated: true, completion: nil)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           500
       }
-
 }

@@ -42,10 +42,7 @@ final class CustomButtonImage: UIButton {
     init(imgName: String) {
         self.imgName = imgName
         super.init(frame: .zero)
-        let config = UIImage.SymbolConfiguration(
-            pointSize: 25, weight: .medium, scale: .default)
-        let image = UIImage(systemName: imgName, withConfiguration: config)
-        setImage(image, for: .normal)
+        setImage(UIImage(systemName: imgName), for: .normal)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         backgroundColor = .clear
