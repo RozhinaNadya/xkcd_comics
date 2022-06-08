@@ -11,7 +11,7 @@ class FavouriteComicsModel {
     var title = "Favourite comics"
     var color: UIColor = .white
     
-    var favouriteButtonImg = UIImage(systemName: "heart")
-    var comicsInfoButtonImg = UIImage(systemName: "info.circle")
+    var favouriteButtonImg = UIImage(systemName: "heart.fill")
+    var comicsInfoButtonImg = UIImage(systemName: "questionmark.circle")
 
 }

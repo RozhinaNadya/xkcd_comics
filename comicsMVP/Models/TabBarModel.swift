@@ -15,4 +15,7 @@ class TabBarModel {
     var favoriteTabBarItemTitle = "Favorite"
     var favoriteTabBarItemImage = UIImage(systemName: "heart")
     
+    var aboutTabBarItemTitle = "About"
+    var aboutTabBarItemImage = UIImage(systemName: "info.circle")
+    
 }

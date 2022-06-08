@@ -13,7 +13,7 @@ class ComicsModel {
     
     var numberTextFieldPlaceholder = " I want comics number..."
     var favouriteButtonImg = UIImage(systemName: "heart")
-    var comicsInfoButtonImg = UIImage(systemName: "info.circle")
+    var comicsInfoButtonImg = UIImage(systemName: "questionmark.circle")
     var prevButtonImg = UIImage(systemName: "chevron.left")
     var nextButtonImg = UIImage(systemName: "chevron.right")
     var numberButtonTitle = "Show"
