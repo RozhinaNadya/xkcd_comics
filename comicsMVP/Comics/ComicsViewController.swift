@@ -15,6 +15,18 @@ class ComicsViewController: UIViewController {
     
     var lastNum: Int?
     
+    var prevButton = CustomButtonImage()
+    
+    var nextButton = CustomButtonImage()
+    
+    var numberButton = CustomButton()
+    
+    var randomButton = CustomButton()
+    
+    var favoriteButton = CustomButtonImage()
+    
+    var comicsInfoButton = CustomButtonImage()
+    
     var comicsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -65,40 +77,9 @@ class ComicsViewController: UIViewController {
         return label
     }()
     
-    var prevButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "chevron.left")
-        return button
-    }()
-    
-    var nextButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "chevron.right")
-        return button
-    }()
-    
-    var numberButton: CustomButton = {
-        let button = CustomButton(title: "Show")
-        return button
-    }()
-    
-    var randomButton: CustomButton = {
-        let button = CustomButton(title: "Next random")
-        return button
-    }()
-    
-    var favoriteButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "heart")
-        return button
-    }()
-    
-    var comicsInfoButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "info.circle")
-        return button
-    }()
-    
     init(){
         super.init(nibName: nil, bundle: nil)
         setUpViewModel()
-        numberTextField.placeholder = " I want comics number..."
     }
     
     override func loadView() {
@@ -191,7 +172,12 @@ class ComicsViewController: UIViewController {
         self.title = viewModel.title
         self.view.backgroundColor = viewModel.color
         self.favoriteButton.setImage(viewModel.favouriteButtonImg, for: .normal)
-        self.comicsInfoButton.setImage(viewModel.conicsInfoButtonImg, for: .normal)
+        self.comicsInfoButton.setImage(viewModel.comicsInfoButtonImg, for: .normal)
+        self.prevButton.setImage(viewModel.prevButtonImg, for: .normal)
+        self.nextButton.setImage(viewModel.nextButtonImg, for: .normal)
+        self.numberButton.setTitle(viewModel.numberButtonTitle, for: .normal)
+        self.randomButton.setTitle(viewModel.randomButtonTitle, for: .normal)
+        self.numberTextField.placeholder = viewModel.numberTextFieldPlaceholder
     }
     
     private func addFavouriteComics() {

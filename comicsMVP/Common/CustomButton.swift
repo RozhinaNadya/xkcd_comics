@@ -8,13 +8,10 @@
 import UIKit
 
 final class CustomButton: UIButton {
-    private var title: String
     var onTap: (() -> Void)?
     
-    init(title: String) {
-        self.title = title
+    init() {
         super.init(frame: .zero)
-        setTitle(title, for: .normal)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         layer.cornerRadius = 10
@@ -36,13 +33,13 @@ final class CustomButton: UIButton {
 }
 
 final class CustomButtonImage: UIButton {
-    private var imgName: String
+ //   private var imgName: String
     var onTap: (() -> Void)?
     
-    init(imgName: String) {
-        self.imgName = imgName
+    init(/*imgName: String*/) {
+      //  self.imgName = imgName
         super.init(frame: .zero)
-        setImage(UIImage(systemName: imgName), for: .normal)
+    //    setImage(UIImage(systemName: imgName), for: .normal)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         backgroundColor = .clear

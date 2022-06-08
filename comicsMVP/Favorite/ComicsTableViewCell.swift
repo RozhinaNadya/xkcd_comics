@@ -30,12 +30,15 @@ class ComicsTableViewCell: UITableViewCell {
     }()
     
     var favoriteButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "heart.fill")
+        let button = CustomButtonImage()
+        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         return button
     }()
     
     var comicsInfoButton: CustomButtonImage = {
-        let button = CustomButtonImage(imgName: "info.circle")
+        let button = CustomButtonImage()
+        button.setImage(UIImage(systemName: "info.circle"), for: .normal)
+
         return button
 
     }()
@@ -81,7 +84,8 @@ class ComicsTableViewCell: UITableViewCell {
             comicsLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             comicsLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsLabel.heightAnchor.constraint(equalToConstant: 50),
-            comicsLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width/2),
+            comicsLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -90),
+
             
             favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             favoriteButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),

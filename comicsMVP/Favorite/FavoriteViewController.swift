@@ -14,11 +14,10 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     let comicsTableViewCell = ComicsTableViewCell()
             
     let tableView = UITableView.init(frame: .zero, style: .plain)
-        
+            
     init(title: String){
         super.init(nibName: nil, bundle: nil)
         self.title = title
- //       comicsTableViewCell.delegate = self
     }
     
     override func loadView() {
@@ -40,11 +39,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             tableView.reloadData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
     }
     
     private func setUpConstraint() {
@@ -91,7 +85,7 @@ extension FavoriteViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          500
+        400
       }
 }
 

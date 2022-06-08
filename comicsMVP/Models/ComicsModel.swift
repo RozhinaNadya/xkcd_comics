@@ -11,13 +11,12 @@ class ComicsModel {
     var title = "xkcd"
     var color: UIColor = .white
     
-//    var showComicsLabelText = "I want comics number"
+    var numberTextFieldPlaceholder = " I want comics number..."
     var favouriteButtonImg = UIImage(systemName: "heart")
-    var conicsInfoButtonImg = UIImage(systemName: "info.circle")
-
- /*   var prevButtonTitle = "< Prev"
-    var naxtButttonTitle = "Next >"
+    var comicsInfoButtonImg = UIImage(systemName: "info.circle")
+    var prevButtonImg = UIImage(systemName: "chevron.left")
+    var nextButtonImg = UIImage(systemName: "chevron.right")
     var numberButtonTitle = "Show"
-    var randomButtonTitle = "Show random comics"
-    var whattIsFunnyButtonTitle = "What's so funny?"*/
+    var randomButtonTitle = "Next random"
+    var whattIsFunnyButtonTitle = "What's so funny?"
 }
