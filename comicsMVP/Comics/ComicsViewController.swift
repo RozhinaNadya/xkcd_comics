@@ -132,6 +132,13 @@ class ComicsViewController: UIViewController {
         self.favoriteButton.setImage(UIImage(systemName: img), for: .normal)
     }
     
+    func deleteComics(comicsForDelete: ComicsData) {
+        if let index = ComicsStore.shared.comics.firstIndex(of: comicsForDelete) {
+            ComicsStore.shared.comics.remove(at: index)
+        }
+        imageFavouriteButton(myComics: comicsForDelete)
+    }
+    
     private func goWhatIsFunnyButton() {
         guard let alt = self.currentComics?.alt else {return self.present(UIAlertController.whyFunny, animated: true, completion: nil)}
         self.showWhyFunny(alt: alt)
@@ -189,7 +196,11 @@ class ComicsViewController: UIViewController {
     
     private func addFavouriteComics() {
         guard let comics = self.currentComics else {return}
+        if ComicsStore.shared.comics.contains(comics) {
+            self.deleteComics(comicsForDelete: comics)
+        } else {
         ComicsStore.shared.comics.append(comics)
+        }
         imageFavouriteButton(myComics: comics)
     }
     

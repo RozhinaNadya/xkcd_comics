@@ -10,12 +10,15 @@ import UIKit
 class FavoriteViewController: UIViewController, UITableViewDelegate {
                 
     let cellComicsID = "ComicsTableViewCell"
+    
+    let comicsTableViewCell = ComicsTableViewCell()
             
     let tableView = UITableView.init(frame: .zero, style: .plain)
         
     init(title: String){
         super.init(nibName: nil, bundle: nil)
         self.title = title
+ //       comicsTableViewCell.delegate = self
     }
     
     override func loadView() {
@@ -32,6 +35,11 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         setUpConstraint()
         tableView.separatorStyle = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,6 +75,7 @@ extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellComicsID, for: indexPath) as? ComicsTableViewCell else { fatalError()}
         let myComics = ComicsStore.shared.comics[indexPath.row]
+        cell.delegate = self
         cell.comicsLabel.text = "\(myComics.title)"
         cell.comicsImageView.loadFrom(URLAddress: myComics.img)
         cell.comicsTableNumber = myComics.num
@@ -74,10 +83,20 @@ extension FavoriteViewController: UITableViewDataSource {
             let alert = cell.showWhyFunny(alt: myComics.alt)
             self.present(alert, animated: true, completion: nil)
         }
+        cell.favoriteButton.onTap = {
+            cell.deleteComics(comicsForDelete: myComics)
+        }
+        cell.imageFavouriteButton(myComics: myComics)
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           500
       }
+}
+
+extension FavoriteViewController: ComicsTableViewCellDelegate {
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
 }

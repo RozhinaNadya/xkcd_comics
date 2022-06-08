@@ -11,10 +11,12 @@ class ComicsTableViewCell: UITableViewCell {
     
     var comicsTableNumber: Int?
     
+    var delegate: ComicsTableViewCellDelegate?
+    
     var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
@@ -56,6 +58,20 @@ class ComicsTableViewCell: UITableViewCell {
     func readAboutComics(num: Int) {
         let defaultURL = NSURL(string: "https://www.explainxkcd.com/wiki/index.php/\(num)")!
         UIApplication.shared.openURL(defaultURL as URL)
+    }
+    
+    func imageFavouriteButton(myComics: ComicsData) {
+
+        let img = ComicsStore.shared.comics.contains(myComics) ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: img), for: .normal)
+    }
+    
+    func deleteComics(comicsForDelete: ComicsData) {
+        if let index = ComicsStore.shared.comics.firstIndex(of: comicsForDelete) {
+            ComicsStore.shared.comics.remove(at: index)
+        }
+        imageFavouriteButton(myComics: comicsForDelete)
+        delegate?.reloadTableView()
     }
     
     private func setUpConstraint() {
