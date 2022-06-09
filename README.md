@@ -22,18 +22,16 @@ The main screen displays the latest published comic. The reference was the main 
     <img width="25%" src="/comicsMVP/Assets.xcassets/mainScreen.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.07.56.png">
   </p>
   
-You can look at the previous comics or randomly, you can also find a specific comic by number if you know it. Keyboard is only numeric. 
-In addition, you can watch the following comics, but in this case, the current comic is the last one, so you will get an error.
-And if you enter a comic number greater than it is, you will be warned about this. And you can't watch the previous comic before the first comic.
+You can look at the previous/next comics or randomly, you can also find a specific comic by number if you know it. Keyboard is only numeric. 
+And if you enter a comic number greater than it is, you will be warned about this. And you can't watch the previous comic before the first comic, of course.
 
 
   <p align="center" width="100%"> 
-    <img width="15%" src="/comicsMVP/Assets.xcassets/prevComics.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.30.00.png">
-    <img width="15%" src="/comicsMVP/Assets.xcassets/ErrorLastComicsToday.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.04.png">
-    <img width="15%" src="/comicsMVP/Assets.xcassets/keyboard.imageset/2022-06-09 10.15.46.jpg">
-    <img width="15%" src="/comicsMVP/Assets.xcassets/showNumber.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.24.png">
-    <img width="15%" src="/comicsMVP/Assets.xcassets/ErrorMoreMax.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.35.png">
-    <img width="15%" src="/comicsMVP/Assets.xcassets/ErrorLessOne.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.52.png">
+    <img width="18%" src="/comicsMVP/Assets.xcassets/prevComics.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.30.00.png">
+    <img width="18%" src="/comicsMVP/Assets.xcassets/keyboard.imageset/2022-06-09 10.15.46.jpg">
+    <img width="18%" src="/comicsMVP/Assets.xcassets/showNumber.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.24.png">
+    <img width="18%" src="/comicsMVP/Assets.xcassets/ErrorMoreMax.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.35.png">
+    <img width="18%" src="/comicsMVP/Assets.xcassets/ErrorLessOne.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.08.52.png">
   </p>
   
   
