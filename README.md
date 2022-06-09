@@ -5,9 +5,9 @@ The Shortcutter's Coding Challenge
 You can see the task here: [Code challenge](https://github.com/shortcut/coding-assignment-mobile)
 
 Client wants to create a comic viewer app based on [these comics](https://xkcd.com/).  
-For MVP this project I chose features:  
+For MVP I chose features:  
 - View comics: current comics, previous and next comics, comics by the comic number;
-- Save comics to favourite and remove comics from favorites if necessary;
+- Save comics to favourites and remove comics from favorites if necessary;
 - View an explanation of the comic and view additional information about this comics on the website (from main screen and favourite screen);
 - View information about license (this is a mandatory requirement of the author for permission to publish).
 
@@ -24,7 +24,7 @@ The main screen displays the latest published comic. The reference was the main 
   
 You can look at the previous comics or randomly, you can also find a specific comic by number if you know it. Keyboard is only numeric. 
 In addition, you can watch the following comics, but in this case, the current comic is the last one, so you will get an error.
-And if you enter a comic number greater than it is, you will be warned about this. And you can't watch the preview comic before the first comic.
+And if you enter a comic number greater than it is, you will be warned about this. And you can't watch the previous comic before the first comic.
 
 
   <p align="center" width="100%"> 
@@ -40,7 +40,7 @@ And if you enter a comic number greater than it is, you will be warned about thi
   Tap on the question icon briefly explains the comic. 
   You can also see more information about this comic on the wiki by clicking on the "Show more" button.
   You can add current comic to favourite comics and see more info too. Favorite comics are added to the feed. 
-  You can remove the comic from your favorites at any time.
+  You can remove the comic from your favorites any time.
   
    <p align="center" width="100%"> 
     <img width="18%" src="/comicsMVP/Assets.xcassets/explanationComics.imageset/Simulator Screen Shot - iPhone 13 - 2022-06-09 at 10.11.49.png">
