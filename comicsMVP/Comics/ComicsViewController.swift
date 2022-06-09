@@ -8,32 +8,32 @@
 import UIKit
 
 class ComicsViewController: UIViewController {
-            
+    
     var viewModel = ComicsModel()
     
-    var currentComics: ComicsData?
+    private var currentComics: ComicsData?
     
-    var lastNum: Int?
+    private var lastNum: Int?
     
-    var prevButton = CustomButtonImage()
+    private var prevButton = CustomButtonImage()
     
-    var nextButton = CustomButtonImage()
+    private var nextButton = CustomButtonImage()
     
-    var numberButton = CustomButton()
+    private var numberButton = CustomButton()
     
-    var randomButton = CustomButton()
+    private var randomButton = CustomButton()
     
-    var favoriteButton = CustomButtonImage()
+    private var favoriteButton = CustomButtonImage()
     
-    var comicsInfoButton = CustomButtonImage()
+    private var comicsInfoButton = CustomButtonImage()
     
-    var comicsScrollView: UIScrollView = {
+    private var comicsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
         return scrollView
     }()
     
-    var comicsLabel: UILabel = {
+    private var comicsLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         label.font = .systemFont(ofSize: 22, weight: .bold)
@@ -41,7 +41,7 @@ class ComicsViewController: UIViewController {
         return label
     }()
     
-    var comicsImageView: UIImageView = {
+    private var comicsImageView: UIImageView = {
         let image = UIImageView()
         image.toAutoLayout()
         image.layer.borderWidth = 1
@@ -49,7 +49,7 @@ class ComicsViewController: UIViewController {
         return image
     }()
     
-    var comicsNumberStackView: UIStackView = {
+    private var comicsNumberStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.axis = .horizontal
@@ -58,7 +58,7 @@ class ComicsViewController: UIViewController {
         return stackView
     }()
     
-    var numberTextField: UITextField = {
+    private var numberTextField: UITextField = {
         let text = UITextField()
         text.toAutoLayout()
         text.indent(size: 10)
@@ -73,7 +73,7 @@ class ComicsViewController: UIViewController {
         return text
     }()
     
-    var numberRangeLabel: UILabel = {
+    private var numberRangeLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         return label
@@ -117,12 +117,11 @@ class ComicsViewController: UIViewController {
     }
     
     private func imageFavouriteButton(myComics: ComicsData) {
-
         let img = ComicsStore.shared.comics.contains(myComics) ? "heart.fill" : "heart"
         self.favoriteButton.setImage(UIImage(systemName: img), for: .normal)
     }
     
-    func deleteComics(comicsForDelete: ComicsData) {
+    private func deleteComics(comicsForDelete: ComicsData) {
         if let index = ComicsStore.shared.comics.firstIndex(of: comicsForDelete) {
             ComicsStore.shared.comics.remove(at: index)
         }
@@ -138,7 +137,7 @@ class ComicsViewController: UIViewController {
         guard let num: Int = self.currentComics?.num else {return self.present(UIAlertController.notInfo, animated: true, completion: nil)}
         self.readAboutComics(num: num)
     }
-        
+    
     private func goRandomComics() {
         guard let num = lastNum else {return print("last num in trouble")}
         let randomInt = Int.random(in: 1..<num)
@@ -157,13 +156,13 @@ class ComicsViewController: UIViewController {
         if number > checkNum {
             self.present(UIAlertController.noComics, animated: true, completion: nil)
         } else {
-        let newComicsUrl = "https://xkcd.com/\(number)/info.0.json"
-        self.getJson(urlString: newComicsUrl)
+            let newComicsUrl = "https://xkcd.com/\(number)/info.0.json"
+            self.getJson(urlString: newComicsUrl)
         }
         textFieldShouldReturn(numberTextField)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -208,7 +207,7 @@ class ComicsViewController: UIViewController {
         if ComicsStore.shared.comics.contains(comics) {
             self.deleteComics(comicsForDelete: comics)
         } else {
-        ComicsStore.shared.comics.append(comics)
+            ComicsStore.shared.comics.append(comics)
         }
         imageFavouriteButton(myComics: comics)
     }
@@ -245,7 +244,7 @@ class ComicsViewController: UIViewController {
             comicsLabel.topAnchor.constraint(equalTo: comicsNumberStackView.bottomAnchor, constant: 20),
             comicsLabel.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -140),
-
+            
             favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             favoriteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             favoriteButton.heightAnchor.constraint(equalToConstant: 25),
@@ -298,7 +297,7 @@ extension ComicsViewController {
             }
             var comicsData: ComicsData?
             do {
-                 comicsData = try JSONDecoder().decode(ComicsData.self, from: data)
+                comicsData = try JSONDecoder().decode(ComicsData.self, from: data)
             } catch {
                 print(error.localizedDescription)
             }
@@ -324,7 +323,7 @@ extension ComicsViewController {
             }
             var comicsData: ComicsData?
             do {
-                 comicsData = try JSONDecoder().decode(ComicsData.self, from: data)
+                comicsData = try JSONDecoder().decode(ComicsData.self, from: data)
             } catch {
                 print(error.localizedDescription)
             }

@@ -9,13 +9,13 @@ import UIKit
 
 class FavoriteViewController: UIViewController, UITableViewDelegate {
     
-    var viewModel = FavouriteComicsModel()
+    private var viewModel = FavouriteComicsModel()
                 
-    let cellComicsID = "ComicsTableViewCell"
+    private let cellComicsID = "ComicsTableViewCell"
     
-    let comicsTableViewCell = ComicsTableViewCell()
+    private let comicsTableViewCell = ComicsTableViewCell()
             
-    let tableView = UITableView.init(frame: .zero, style: .plain)
+    private let tableView = UITableView.init(frame: .zero, style: .plain)
             
     init(){
         super.init(nibName: nil, bundle: nil)

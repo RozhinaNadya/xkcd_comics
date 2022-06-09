@@ -8,7 +8,7 @@
 import UIKit
 
 class Factory {
-        
+    
     func makeTabBar(viewModel: TabBarModel, comicsController: UINavigationController, favoriteController: UINavigationController, aboutController: UINavigationController) -> UITabBarController {
         
         comicsController.tabBarItem = UITabBarItem(title: viewModel.comicsTabBarItemTitle, image: viewModel.comicsTabBarItemImage, selectedImage: nil)

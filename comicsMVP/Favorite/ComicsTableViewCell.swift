@@ -54,7 +54,7 @@ class ComicsTableViewCell: UITableViewCell {
     }
     
     func imageFavouriteButton(myComics: ComicsData) {
-
+        
         let img = ComicsStore.shared.comics.contains(myComics) ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: img), for: .normal)
     }
@@ -70,12 +70,12 @@ class ComicsTableViewCell: UITableViewCell {
     private func setUpConstraint() {
         contentView.addSubviews([comicsLabel, comicsImageView, favoriteButton, comicsInfoButton])
         NSLayoutConstraint.activate([
-
+            
             comicsLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             comicsLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsLabel.heightAnchor.constraint(equalToConstant: 50),
             comicsLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -90),
-
+            
             
             favoriteButton.bottomAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             favoriteButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
@@ -86,12 +86,12 @@ class ComicsTableViewCell: UITableViewCell {
             comicsInfoButton.rightAnchor.constraint(equalTo: favoriteButton.leftAnchor, constant: -10),
             comicsInfoButton.heightAnchor.constraint(equalToConstant: 50),
             comicsInfoButton.widthAnchor.constraint(equalToConstant: 25),
-
+            
             comicsImageView.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor),
             comicsImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             comicsImageView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
             comicsImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            ])
+        ])
     }
     
     required init?(coder: NSCoder) {

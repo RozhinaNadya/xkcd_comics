@@ -8,7 +8,7 @@
 import UIKit
 
 class ComicsModel {
-    var title = "xkcd"
+    var title = "xkcd comics"
     var color: UIColor = .white
     
     var numberTextFieldPlaceholder = "I want comics number..."

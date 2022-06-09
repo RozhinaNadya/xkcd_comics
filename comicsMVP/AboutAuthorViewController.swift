@@ -9,23 +9,23 @@ import UIKit
 
 class AboutAuthorViewController: UIViewController {
     
-    var viewModel = AboutAuthorModel()
+    private var viewModel = AboutAuthorModel()
     
-    var aboutScrollView: UIScrollView = {
+    private var aboutScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
         return scrollView
     }()
-        
-    var authorImageView: UIImageView = {
+    
+    private var authorImageView: UIImageView = {
         let image = UIImageView()
         image.toAutoLayout()
         return image
     }()
     
-    var licenseButton = CustomButton()
+    private var licenseButton = CustomButton()
     
-    var licenseTextLabel: UILabel = {
+    private var licenseTextLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         label.numberOfLines = 0
@@ -77,7 +77,7 @@ class AboutAuthorViewController: UIViewController {
             licenseButton.heightAnchor.constraint(equalToConstant: 50),
             licenseButton.widthAnchor.constraint(equalToConstant: 150),
             licenseButton.bottomAnchor.constraint(equalTo: aboutScrollView.bottomAnchor, constant: -20),
-
+            
         ])
     }
     

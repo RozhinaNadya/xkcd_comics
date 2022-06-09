@@ -33,13 +33,10 @@ final class CustomButton: UIButton {
 }
 
 final class CustomButtonImage: UIButton {
- //   private var imgName: String
     var onTap: (() -> Void)?
     
-    init(/*imgName: String*/) {
-      //  self.imgName = imgName
+    init() {
         super.init(frame: .zero)
-    //    setImage(UIImage(systemName: imgName), for: .normal)
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         backgroundColor = .clear
